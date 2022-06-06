@@ -12,6 +12,7 @@ module.exports = {
 			'@controllers': path.join(srcDirPath, 'controllers'),
 			'@codecs': path.join(srcDirPath, 'codecs'),
 			'@utils': path.join(srcDirPath, 'utils'),
+			'@routes': path.join(srcDirPath, 'routes'),
 		},
 	},
 };
