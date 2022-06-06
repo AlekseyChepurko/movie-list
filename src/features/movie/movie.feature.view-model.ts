@@ -50,7 +50,7 @@ const movieFeatureViewModel = injectable(
 				}),
 				liveData.chain((video) =>
 					pipe(
-						getYouTubeVideos(`${video.title} trailer`),
+						getYouTubeVideos(`${video.title} ${video.releaseYear} trailer`),
 						liveData.map(({ items }) => items),
 						liveData.map(A.head),
 						liveData.chain(liveData.fromOption(() => ({ code: 404, description: 'No video trailer found' }))),
