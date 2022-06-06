@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Preparation
+
+### !!!ATTENTION!!!
+Before running an application provide appropriate API keys to the [.env.json](./.env.json) file
+
 ## Available Scripts
 
 ### `npm start`
