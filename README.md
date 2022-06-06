@@ -4,43 +4,63 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run:
-
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Runs the app in the development mode.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the interactive watch mode.
 
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm run serve`
+Build the project's artifacts and starts delivering at the localhost
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Development approaches
 
-### `npm run eject`
+### Data handling ways
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To handle data values and store them in a safe way we use:
+- [fp-ts](https://github.com/gcanti/fp-ts) to store and handle application-level data
+- [io-ts](https://github.com/gcanti/io-ts) to validate 3rd-party services' response in a runtime
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To handle async-stuff [rxjs](https://rxjs.dev/) was chosen.
+In combination with fp-ts based helper called [RemoteData](https://github.com/devexperts/remote-data-ts)
+it allows us to create the separate monad-based helper called [LiveData](./src/utils/liveData).
+In general all LiveData stuff is just ```Observable<RemoteData>``` wrapped in a monad-way
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Code splitting
 
-## Learn More
+UI file structure is organized with an approach based on [Atomic design](https://bradfrost.com/blog/post/atomic-web-design/).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+All UI components (atoms/molecules/organisms) should be placed at [src/ui](./src/ui).
+Everything inside of `src/ui` should not know about business logic at all!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+All business logic should be placed at [src/features](./src/features) dir.
+
+Services logic should be placed at
+
+    src/services/serviceName.service.ts
+
+All network-level codecs should be placed at the
+
+    src/codecs/codecName.codec.ts
+
+All application level common type-models should be placed to the [src/domain](./src/domain) dir
+
+### Routing structure
+
+All available application's routes should be stored in a single place: 
+[src/routes](./src/routes) and have to match common pattern:
+```typescript jsx
+const routes = {
+    pathName: {
+        path: '/data/:dataID', // pattern for react-router to match
+        getPath: (dataID: string) => `/data/${dataID}` // path constructor 
+    }
+}
+```
