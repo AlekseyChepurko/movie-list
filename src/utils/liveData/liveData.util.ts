@@ -6,7 +6,7 @@ import {
 	CoproductLeft,
 	coproductMapLeft,
 } from '@devexperts/utils/dist/typeclasses/product-left-coproduct-left/product-left-coproduct-left.utils';
-import { sequenceArrayRD } from '@utils/RemoteData';
+import { sequenceArrayRD } from '@utils/remoteData';
 import * as A from 'fp-ts/Array';
 import { sequenceS, sequenceT } from 'fp-ts/lib/Apply';
 import { Filterable2 } from 'fp-ts/lib/Filterable';
