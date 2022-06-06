@@ -35,12 +35,12 @@ const movieFeatureViewModel = injectable(
 					return pipe(
 						poster,
 						liveData.map((data) => {
-							return data.results[0].poster_path;
+							return data.results[0]?.poster_path;
 						}),
 						liveData.altOnError(() => ''),
 						liveData.map((poster) => ({
 							title: data.name,
-							image: `${endpoint}${poster}`,
+							image: poster ? `${endpoint}${poster}` : '/no-image.png',
 							genre: data.genre,
 							releaseYear: data.productionYear,
 							description: data.synopsisShort,

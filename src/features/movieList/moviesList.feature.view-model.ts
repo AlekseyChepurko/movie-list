@@ -21,11 +21,11 @@ const moviesListFeatureViewModel = injectable(moviesListController, movieImageCo
 					const [poster, endpoint] = getMovieImage(data.name);
 					return pipe(
 						poster,
-						liveData.map((data) => data.results[0].backdrop_path),
+						liveData.map((data) => data.results[0]?.backdrop_path),
 						liveData.altOnError(() => ''),
 						liveData.map((poster) => ({
 							title: data.name,
-							image: `${endpoint}${poster}`,
+							image: poster ? `${endpoint}${poster}` : '/no-image.png',
 							genre: data.genre,
 							releaseYear: data.productionYear,
 							description: data.synopsisShort,
