@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
+
+import { injectable, token } from '@injectable-ts/core';
+import { MainPage } from '@pages/main';
+import { MoviePage } from '@pages/movie';
+import { Routing } from '@routes/routes';
+import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
+
+import 'antd/dist/antd.css';
+import * as Styled from './App.styled';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const AppContainer = injectable(MainPage, MoviePage, token('routing')<Routing>(), (Main, Movie, routing) => (
+	<Styled.Layout className="App">
+		<Router>
+			<Styled.Header className="App-header">
+				<Link to={routing.main.getPath()}>Application header</Link>
+			</Styled.Header>
+			<Styled.Main>
+				<Routes>
+					<Route path={routing.main.path} element={<Main />} />
+					<Route path={routing.movie.path} element={<Movie />} />
+				</Routes>
+			</Styled.Main>
+		</Router>
+	</Styled.Layout>
+));
 
-export default App;
+export { AppContainer };
