@@ -1,0 +1,64 @@
+{
+	"extends": [
+		"react-app",
+		"react-app/jest",
+		"plugin:react/recommended"
+	],
+	"plugins": ["import"],
+	"rules": {
+		"arrow-parens": "off",
+		"react/prop-types": "off",
+		"react/display-name": "off",
+		"react/no-unescaped-entities": "off",
+		"@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }],
+		"import/order": [
+			"error",
+			{
+				"groups": ["builtin", "external", "internal"],
+				"pathGroups": [
+					{
+						"pattern": "react",
+						"group": "external",
+						"position": "before"
+					},
+					{
+						"pattern": "@domain/**",
+						"group": "external"
+					},
+					{
+						"pattern": "@services/**",
+						"group": "external"
+					},
+
+					{
+						"pattern": "@ui/atoms/**",
+						"group": "internal"
+					},
+					{
+						"pattern": "@ui/molecules/**",
+						"group": "internal"
+					},
+					{
+						"pattern": "@ui/organisms/**",
+						"group": "internal"
+					},
+					{
+						"pattern": "@ui/**",
+						"group": "internal"
+					},
+					{
+						"pattern": "@features/**",
+						"group": "internal",
+						"position": "after"
+					}
+				],
+				"pathGroupsExcludedImportTypes": ["react"],
+				"newlines-between": "always",
+				"alphabetize": {
+					"order": "asc",
+					"caseInsensitive": true
+				}
+			}
+		]
+	}
+}
