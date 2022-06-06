@@ -5,7 +5,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Preparation
 
 ### !!!ATTENTION!!!
-Before running an application provide appropriate API keys to the [.env.json](./.env.json) file
+
+Application uses 3rd-party APIs:
+- [TMDB](https://www.themoviedb.org/documentation/api) 
+- [YouTube Data API](https://developers.google.com/youtube/v3/getting-started)
+
+So before start you need to get appropriate API keys and place them to the [.env.json](./.env.json) file
 
 ## Available Scripts
 
